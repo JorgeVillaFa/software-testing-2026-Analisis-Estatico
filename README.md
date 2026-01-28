@@ -1,0 +1,1 @@
+# software-testing-2026-Analisis-Estatico
