@@ -9,19 +9,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      # Node para correr ESLint / scripts npm
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
-
-      # Instala dependencias para que ESLint exista en CI
       - name: Install Node deps
         run: npm ci
-
-      # Python solo para poder ejecutar pre-commit (si tu acción lo requiere)
       - uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-
       - uses: pre-commit/action@v3.0.0
