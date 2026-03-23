@@ -1,5 +1,3 @@
-
-
 # 22
 class VendingMachine:
     """

@@ -1,17 +1,19 @@
 """
 White-box unit testing examples.
 """
+
 import unittest
 
 from WhiteBox_P2 import (
     BankAccount,
     BankingSystem,
-    VendingMachine,
-    TrafficLight,
-    UserAuthentication,
     DocumentEditingSystem,
     ElevatorSystem,
+    TrafficLight,
+    UserAuthentication,
+    VendingMachine,
 )
+
 
 class TestBankAccount(unittest.TestCase):
     """
@@ -48,7 +50,6 @@ class TestBankingSystem(unittest.TestCase):
         self.assertTrue(result)
         self.assertIn("user123", self.banking_system.logged_in_users)
 
-
     def test_authenticate_wrong_password(self):
         """
         Checks that authentication fails when the password is incorrect.
@@ -58,7 +59,6 @@ class TestBankingSystem(unittest.TestCase):
         self.assertFalse(result)
         self.assertNotIn("user123", self.banking_system.logged_in_users)
 
-
     def test_authenticate_unknown_user(self):
         """
         Checks that authentication fails for a non-existent user.
@@ -66,7 +66,6 @@ class TestBankingSystem(unittest.TestCase):
         result = self.banking_system.authenticate("unknown", "pass123")
 
         self.assertFalse(result)
-
 
     def test_authenticate_already_logged_in(self):
         """
@@ -83,57 +82,64 @@ class TestBankingSystem(unittest.TestCase):
         """
         Checks that the transfer fails when the sender is not logged in.
         """
-        result = self.banking_system.transfer_money("user123", "receiver", 100, "regular")
+        result = self.banking_system.transfer_money(
+            "user123", "receiver", 100, "regular"
+        )
 
         self.assertFalse(result)
-
 
     def test_transfer_money_invalid_transaction_type(self):
         """
         Checks that the transfer fails when an unknown transaction type is provided.
         """
         self.banking_system.authenticate("user123", "pass123")
-        result = self.banking_system.transfer_money("user123", "receiver", 100, "crypto")
+        result = self.banking_system.transfer_money(
+            "user123", "receiver", 100, "crypto"
+        )
 
         self.assertFalse(result)
-
 
     def test_transfer_money_regular_success(self):
         """
         Checks a successful regular transfer with sufficient funds.
         """
         self.banking_system.authenticate("user123", "pass123")
-        result = self.banking_system.transfer_money("user123", "receiver", 100, "regular")
+        result = self.banking_system.transfer_money(
+            "user123", "receiver", 100, "regular"
+        )
 
         self.assertTrue(result)
-
 
     def test_transfer_money_express_success(self):
         """
         Checks a successful express transfer with sufficient funds.
         """
         self.banking_system.authenticate("user123", "pass123")
-        result = self.banking_system.transfer_money("user123", "receiver", 100, "express")
+        result = self.banking_system.transfer_money(
+            "user123", "receiver", 100, "express"
+        )
 
         self.assertTrue(result)
-
 
     def test_transfer_money_scheduled_success(self):
         """
         Checks a successful scheduled transfer with sufficient funds.
         """
         self.banking_system.authenticate("user123", "pass123")
-        result = self.banking_system.transfer_money("user123", "receiver", 100, "scheduled")
+        result = self.banking_system.transfer_money(
+            "user123", "receiver", 100, "scheduled"
+        )
 
         self.assertTrue(result)
-
 
     def test_transfer_money_insufficient_funds(self):
         """
         Checks that the transfer fails when the amount plus fee exceeds the balance.
         """
         self.banking_system.authenticate("user123", "pass123")
-        result = self.banking_system.transfer_money("user123", "receiver", 1000, "regular")
+        result = self.banking_system.transfer_money(
+            "user123", "receiver", 1000, "regular"
+        )
 
         self.assertFalse(result)
 

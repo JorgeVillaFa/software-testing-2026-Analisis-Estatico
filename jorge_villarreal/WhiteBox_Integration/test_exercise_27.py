@@ -88,7 +88,9 @@ class TestBankingSystem(unittest.TestCase):
         """
         Verifica que no se pueda hacer una transferencia si el usuario no ha iniciado sesión.
         """
-        result = self.banking_system.transfer_money(self.user, "user456", 200, "regular")
+        result = self.banking_system.transfer_money(
+            self.user, "user456", 200, "regular"
+        )
         self.assertFalse(result)
         mock_print.assert_called_with("Sender not authenticated.")
 
@@ -101,7 +103,9 @@ class TestBankingSystem(unittest.TestCase):
         amount = 200
         transaction_type = "regular"
         self.banking_system.logged_in_users.add(self.user)
-        result = self.banking_system.transfer_money(self.user, receiver, amount, transaction_type)
+        result = self.banking_system.transfer_money(
+            self.user, receiver, amount, transaction_type
+        )
         self.assertTrue(result)
         mock_print.assert_called_with(
             f"Money transfer of ${amount} ({transaction_type} transfer)"
@@ -117,7 +121,9 @@ class TestBankingSystem(unittest.TestCase):
         amount = 200
         transaction_type = "express"
         self.banking_system.logged_in_users.add(self.user)
-        result = self.banking_system.transfer_money(self.user, receiver, amount, transaction_type)
+        result = self.banking_system.transfer_money(
+            self.user, receiver, amount, transaction_type
+        )
         self.assertTrue(result)
         mock_print.assert_called_with(
             f"Money transfer of ${amount} ({transaction_type} transfer)"
@@ -133,7 +139,9 @@ class TestBankingSystem(unittest.TestCase):
         amount = 200
         transaction_type = "scheduled"
         self.banking_system.logged_in_users.add(self.user)
-        result = self.banking_system.transfer_money(self.user, receiver, amount, transaction_type)
+        result = self.banking_system.transfer_money(
+            self.user, receiver, amount, transaction_type
+        )
         self.assertTrue(result)
         mock_print.assert_called_with(
             f"Money transfer of ${amount} ({transaction_type} transfer)"
@@ -156,7 +164,9 @@ class TestBankingSystem(unittest.TestCase):
         Verifica que una transferencia mayor al saldo disponible sea rechazada.
         """
         self.banking_system.logged_in_users.add(self.user)
-        result = self.banking_system.transfer_money(self.user, "user456", 1000, "regular")
+        result = self.banking_system.transfer_money(
+            self.user, "user456", 1000, "regular"
+        )
         self.assertFalse(result)
         mock_print.assert_called_with("Insufficient funds.")
 

@@ -10,6 +10,7 @@ from white_box.class_exercises import (
     calculate_items_shipping_cost,
     calculate_order_total,
     calculate_quantity_discount,
+    calculate_shipping_cost,
     calculate_total_discount,
     categorize_product,
     celsius_to_fahrenheit,
@@ -26,7 +27,6 @@ from white_box.class_exercises import (
     validate_password,
     validate_url,
     verify_age,
-    calculate_shipping_cost,
 )
 
 
@@ -200,7 +200,9 @@ class TestCalculateItemsShippingCost(unittest.TestCase):
         """
         Verifica que envío estándar con peso mayor a 10 kg cueste $20.
         """
-        self.assertEqual(calculate_items_shipping_cost([{"weight": 12}], "standard"), 20)
+        self.assertEqual(
+            calculate_items_shipping_cost([{"weight": 12}], "standard"), 20
+        )
 
     def test_express_light(self):
         """
