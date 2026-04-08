@@ -23,13 +23,11 @@ class TestStringCalculator(unittest.TestCase):
     def test_many_numbers_newline(self):
         self.assertEqual(stringCalculator('1\n2\n3\n4'), 10)
 
-    def test_comma_then_newline_raises(self):
-        with self.assertRaises(ValueError):
-            stringCalculator('1,\n3')
+    def test_comma_then_newline_treated_as_zero(self):
+        self.assertEqual(stringCalculator('1,\n3'), 4)
 
-    def test_newline_then_comma_raises(self):
-        with self.assertRaises(ValueError):
-            stringCalculator('1\n,3')
+    def test_newline_then_comma_treated_as_zero(self):
+        self.assertEqual(stringCalculator('1\n,3'), 4)
 
     def test_trailing_comma_raises(self):
         with self.assertRaises(ValueError):
@@ -47,15 +45,19 @@ class TestStringCalculator(unittest.TestCase):
 def stringCalculator(numbers):
     if numbers == '':
         return 0
+
     if numbers.endswith(',') or numbers.endswith('\n'):
         raise ValueError('Invalid input: string cannot end with a separator')
-    if ',\n' in numbers or '\n,' in numbers:
-        raise ValueError('Invalid input: comma and newline cannot be adjacent')
+
+    numbers = numbers.replace(',\n', ',0,').replace('\n,', ',0,')
+
     total = 0
     for n in numbers.replace('\n', ',').split(','):
+        if n.strip() == '':
+            continue
         total += float(n)
-    return total
 
+    return total
 
 if __name__ == '__main__':
     unittest.main()
