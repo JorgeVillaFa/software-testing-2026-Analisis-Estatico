@@ -1,5 +1,4 @@
-{
-  "cities": [
+[
     "Paris",
     "Budapest",
     "Skopje",
@@ -16,5 +15,4 @@
     "Dubai",
     "Rome",
     "Istanbul"
-  ]
-}
+]
